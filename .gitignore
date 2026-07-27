@@ -1,0 +1,15 @@
+.env
+data/
+data/postgres/
+data/n8n/
+data/assets/*
+data/exports/*
+data/backups/*
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+.pytest_cache/
+backend/.venv/
+backend/.venv-runtime/
+backend/test.db
+qa/

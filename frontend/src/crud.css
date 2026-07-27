@@ -1,0 +1,138 @@
+.editor {
+  margin: 20px 0;
+  padding: 24px;
+}
+
+.editor > textarea {
+  min-height: 340px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.formgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.formgrid label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(18, 20, 34, 0.72);
+}
+
+.formgrid label > span {
+  color: #d9dae6;
+  font-weight: 700;
+}
+
+.formgrid em {
+  color: var(--danger);
+}
+
+.formgrid input,
+.formgrid textarea,
+.formgrid select {
+  width: 100%;
+  margin: 0;
+}
+
+.formgrid textarea {
+  min-height: 95px;
+}
+
+.formgrid small {
+  color: var(--muted);
+}
+
+.tablebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.tablebar .actions {
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.rowactions {
+  display: flex;
+  gap: 6px;
+}
+
+.rowactions button {
+  min-height: 34px;
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+.danger {
+  border-color: rgba(255, 128, 142, 0.3);
+  background: rgba(104, 35, 47, 0.35);
+  color: #ffc4ca;
+}
+
+.datatable {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.datatable > table {
+  order: 1;
+}
+
+.datatable > .tablebar {
+  position: sticky;
+  left: 0;
+  order: 2;
+  width: 100%;
+  min-width: calc(100vw - 390px);
+  margin: 17px 0 0;
+  padding-top: 15px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.datatable > .tablebar h2 {
+  display: none;
+}
+
+.datatable > .tablebar .actions {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+@media (max-width: 1120px) {
+  .datatable > .tablebar {
+    min-width: calc(100vw - 320px);
+  }
+}
+
+@media (max-width: 760px) {
+  .tablebar {
+    display: block;
+  }
+
+  .tablebar .actions {
+    margin-bottom: 12px;
+  }
+
+  .formgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .datatable > .tablebar {
+    min-width: calc(100vw - 76px);
+  }
+}

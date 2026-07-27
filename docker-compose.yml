@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file: .env
+    volumes: ["./data/postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+  adminer:
+    image: adminer:4-standalone
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    ports: ["127.0.0.1:8081:8080"]
+    depends_on:
+      postgres: {condition: service_healthy}
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    volumes: ["./data/assets:/data/assets", "./data/exports:/data/exports"]
+    depends_on:
+      postgres: {condition: service_healthy}
+    ports: ["127.0.0.1:8000:8000"]
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on: [backend]
+    ports: ["127.0.0.1:8080:80"]
+  n8n:
+    build: ./n8n
+    image: project-1-ai-n8n:1.123.66
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      GENERIC_TIMEZONE: Asia/Shanghai
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+      N8N_RUNNERS_ENABLED: "true"
+      DB_SQLITE_POOL_SIZE: "2"
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      N8N_GIT_NODE_DISABLE_BARE_REPOS: "true"
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+      N8N_TEMPLATES_ENABLED: "false"
+    volumes: ["./data/n8n:/home/node/.n8n", "./n8n/workflows:/workflows:ro"]
+    ports: ["5678:5678"]
+    depends_on: [backend]
