@@ -213,4 +213,4 @@ git check-ignore .env data/postgres data/exports
 
 ## 许可证
 
-仓库尚未附带许可证。准备公开发布时，建议根据用途添加 `MIT`、`Apache-2.0` 或其他合适的开源许可证。
+本项目采用 [MIT License](LICENSE) 开源。
