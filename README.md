@@ -210,6 +210,7 @@ git check-ignore .env data/postgres data/exports
 ```
 
 确认输出中没有 `.env`、`data/` 内的内容、真实密钥、个人文章或用户上传文件。若密钥曾被提交到 Git 历史，请立即在对应平台撤销并重新生成。
+欢迎交流 2959681988@qq.com
 
 ## 许可证
 
